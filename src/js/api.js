@@ -14,8 +14,11 @@ export default class ImagesApiServise {
 
         return fetch(url)
             .then(this.onFetch)
-            .then(response => {
-                this.onResolved(response);
+            .then(({hits}) => {
+                this.onResolved(hits);
+                this.incrementPage();
+
+                return hits;
             })
             .catch(response => {
                 this.onRejected(response);
@@ -30,6 +33,14 @@ export default class ImagesApiServise {
         } else {
         throw "It seems there are some server issues.";
         }
+    }
+
+    incrementPage() {
+        this.page += 1;
+    }
+
+    resetPage() {
+        this.page = 1;
     }
 
     get query() {

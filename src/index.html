@@ -3,36 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Заголовок страницы</title>
+    <title>Image Finder</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
       integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
       crossorigin="anonymous"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>
-    <form class="serch-form js-serch-form">
-      <div class="form-group">
-        <input 
-          type="text"
-          class="form-control"
-          name="query"
-          id="searchQuery"
-          placeholder="Enter your request"
-          autocomplete="off" 
-          />
+    <h2>Image Finder</h2>
+
+    <form class="search-form form-inline" id="search-form">
+      <div class="form-group mx-sm-3 mb-3">
+        <input type="text" class="form-control" name="query" autocomplete="off" id="searchQuery"
+          placeholder="Search images..." />
       </div>
-      <button type="submit" class="btn submit-btn">Search</button>
+      <button type="submit" class="btn btn-primary mb-3" data-action="search-btn">Search</button>
     </form>
 
-    <ul class="countries js-images"></ul>
+    <ul class="images-list js-images-list">
+      <!-- Елементы <li> списка с карточками изображений -->
+    </ul>
 
-    <button 
-      type="button"
-      class="btn load-btn"
-      data-action="load-more"
-    >Show more
+    <button type="button" class="btn btn-primary button" data-action="load-more">
+      <span class="circles spinner-border spinner-border-sm spinner" role="status" aria-hidden="true"></span>
+    
+      <span class="label">Load more</span>
     </button>
 
     <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
