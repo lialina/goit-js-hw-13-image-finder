@@ -12,6 +12,29 @@
     />
   </head>
   <body>
+    <form class="serch-form js-serch-form">
+      <div class="form-group">
+        <input 
+          type="text"
+          class="form-control"
+          name="query"
+          id="searchQuery"
+          placeholder="Enter your request"
+          autocomplete="off" 
+          />
+      </div>
+      <button type="submit" class="btn submit-btn">Search</button>
+    </form>
+
+    <ul class="countries js-images"></ul>
+
+    <button 
+      type="button"
+      class="btn load-btn"
+      data-action="load-more"
+    >Show more
+    </button>
+
     <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
     <!-- <include src="./partials/example.html"></include> -->
 
