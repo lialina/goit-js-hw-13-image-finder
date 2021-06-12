@@ -7,14 +7,18 @@ const refs = {
     searchForm: document.querySelector('.search-form'),
     searchInput: document.querySelector('.form-control'),
     imagesContainer: document.querySelector('.js-images-list'),
-    // loadMoreBtn: document.querySelector('.button'),
+    hideImagesText: document.querySelector('.images-finish'),
 }
 
 refs.searchForm.addEventListener('submit', onSearch);
 
 const loadMoreButton = new LoadMoreButton({
     selector: '[data-action="load-more"]',
+    hidden: true,
 });
+
+
+
 
 loadMoreButton.refs.button.addEventListener('click', onLoadMore);
 
@@ -36,6 +40,8 @@ function onSearch(e) {
         return onError();
     }
 
+    loadMoreButton.show();
+    loadMoreButton.disable();
     imagesApiServise.resetPage();
     imagesApiServise.fetchImages();
 }
@@ -45,11 +51,25 @@ function createMarkup(data) {
     clearImagesContainer();
 
     if (refs.searchInput.value.length === 0) {
-        clearImagesContainer();
+        loadMoreButton.hide();
         return;
     }
     
-    refs.imagesContainer.insertAdjacentHTML('beforeend', imagesList(data));
+    if (data.length === 0) {
+        loadMoreButton.hide();
+        onError();
+        return;
+    }
+
+    if (data.length < 12 && data.length > 0) {
+        refs.hideImagesText.textContent = 'No more images';
+        loadMoreButton.hide();
+        appendImagesMarkup(data);
+        return;
+    }
+
+    appendImagesMarkup(data);
+    loadMoreButton.enable();
 };
 
 function clearImagesContainer() {
@@ -57,9 +77,20 @@ function clearImagesContainer() {
 };
 
 function onLoadMore() {
-    imagesApiServise.fetchImages();
+    loadMoreButton.disable();
+    imagesApiServise.fetchImages().then(data => {
+        appendImagesMarkup(data);
+        loadMoreButton.enable();
+    });
 };
 
-function onError(err) {
-    console.log(err);
+function appendImagesMarkup(data) {
+    refs.imagesContainer.insertAdjacentHTML('beforeend', imagesList(data));
+}
+
+function onError() {
+    refs.imagesContainer.innerHTML = "";
+    const error = document.createElement("h1");
+    error.textContent = "Sorry, we couldn't pull up requested data :(";
+    refs.imagesContainer.appendChild(error);
 };
