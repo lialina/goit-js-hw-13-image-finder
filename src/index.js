@@ -7,7 +7,7 @@ const refs = {
     searchForm: document.querySelector('.search-form'),
     searchInput: document.querySelector('.form-control'),
     imagesContainer: document.querySelector('.js-images-list'),
-    hideImagesText: document.querySelector('.images-finish'),
+    // loadMoreBtn: document.querySelector('.button'),
 }
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -16,9 +16,6 @@ const loadMoreButton = new LoadMoreButton({
     selector: '[data-action="load-more"]',
     hidden: true,
 });
-
-
-
 
 loadMoreButton.refs.button.addEventListener('click', onLoadMore);
 
@@ -48,10 +45,11 @@ function onSearch(e) {
 
 function createMarkup(data) {
     console.log('Hello, its markup');
-    clearImagesContainer();
+    // clearImagesContainer();
 
     if (refs.searchInput.value.length === 0) {
         loadMoreButton.hide();
+        clearImagesContainer();
         return;
     }
     
@@ -62,7 +60,6 @@ function createMarkup(data) {
     }
 
     if (data.length < 12 && data.length > 0) {
-        refs.hideImagesText.textContent = 'No more images';
         loadMoreButton.hide();
         appendImagesMarkup(data);
         return;
@@ -78,10 +75,8 @@ function clearImagesContainer() {
 
 function onLoadMore() {
     loadMoreButton.disable();
-    imagesApiServise.fetchImages().then(data => {
-        appendImagesMarkup(data);
-        loadMoreButton.enable();
-    });
+    imagesApiServise.fetchImages().then(appendImagesMarkup(data));
+    loadMoreButton.enable();
 };
 
 function appendImagesMarkup(data) {
@@ -89,8 +84,8 @@ function appendImagesMarkup(data) {
 }
 
 function onError() {
-    refs.imagesContainer.innerHTML = "";
+    refs.countriesContainer.innerHTML = "";
     const error = document.createElement("h1");
     error.textContent = "Sorry, we couldn't pull up requested data :(";
-    refs.imagesContainer.appendChild(error);
+    refs.countriesContainer.appendChild(error);
 };
