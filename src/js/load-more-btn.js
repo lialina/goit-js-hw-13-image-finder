@@ -34,14 +34,14 @@ export default class LoadMoreButton {
         this.refs.button.classList.add('is-hidden');
     }
 
-    showFinish() {
-        this.refs.button.disabled = true;
-        this.refs.button.classList.remove('is-hidden');
-        this.refs.spinner.classList.add('is-hidden');
-        this.refs.label.textContent = 'No more images';
-    }
+    // showFinish() {
+    //     this.refs.button.disabled = true;
+    //     this.refs.button.classList.remove('is-hidden');
+    //     this.refs.spinner.classList.add('is-hidden');
+    //     this.refs.label.textContent = 'No more images';
+    // }
 
-    hideFinish() {
-        this.refs.button.classList.remove('end');
-    }
+    // hideFinish() {
+    //     this.refs.button.classList.remove('end');
+    // }
 }

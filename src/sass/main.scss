@@ -77,13 +77,6 @@ li {
 //   background-color: #5eb1c0;
 // }
 
-// .button {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin: auto;
-// }
-
 .images-list {
   display: flex;
   flex-wrap: wrap;
@@ -106,10 +99,6 @@ li {
   margin-right: 0;
 }
 
-.gallery-item:nth-last-child(-n + 4) {
-  margin-bottom: 0;
-}
-
 .gallery-image {
   display: flex;
   justify-content: center;
@@ -123,8 +112,6 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // padding: 0 32px;
-  // margin-bottom: 30px;
 }
 
 .stats-item {

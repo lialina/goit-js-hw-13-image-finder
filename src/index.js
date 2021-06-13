@@ -7,7 +7,8 @@ const refs = {
     searchForm: document.querySelector('.search-form'),
     searchInput: document.querySelector('.form-control'),
     imagesContainer: document.querySelector('.js-images-list'),
-    // loadMoreBtn: document.querySelector('.button'),
+    
+    hideImagesText: document.querySelector('.images-finish'),
 }
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -34,9 +35,12 @@ function onSearch(e) {
     }
     
     if (imagesApiServise.query === '') {
+        clearImagesContainer();
         return onError();
     }
 
+    clearImagesContainer();
+    refs.hideImagesText.classList.add('is-hidden');
     loadMoreButton.show();
     loadMoreButton.disable();
     imagesApiServise.resetPage();
@@ -44,9 +48,6 @@ function onSearch(e) {
 }
 
 function createMarkup(data) {
-    console.log('Hello, its markup');
-    // clearImagesContainer();
-
     if (refs.searchInput.value.length === 0) {
         loadMoreButton.hide();
         clearImagesContainer();
@@ -61,6 +62,7 @@ function createMarkup(data) {
 
     if (data.length < 12 && data.length > 0) {
         loadMoreButton.hide();
+        refs.hideImagesText.classList.remove('is-hidden');
         appendImagesMarkup(data);
         return;
     }
@@ -75,8 +77,7 @@ function clearImagesContainer() {
 
 function onLoadMore() {
     loadMoreButton.disable();
-    imagesApiServise.fetchImages().then(appendImagesMarkup(data));
-    loadMoreButton.enable();
+    imagesApiServise.fetchImages().then(loadMoreButton.enable());
 };
 
 function appendImagesMarkup(data) {
@@ -84,8 +85,8 @@ function appendImagesMarkup(data) {
 }
 
 function onError() {
-    refs.countriesContainer.innerHTML = "";
+    refs.imagesContainer.innerHTML = "";
     const error = document.createElement("h1");
     error.textContent = "Sorry, we couldn't pull up requested data :(";
-    refs.countriesContainer.appendChild(error);
+    refs.imagesContainer.appendChild(error);
 };

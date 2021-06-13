@@ -1,10 +1,6 @@
 const API_KEY = '22041445-5ed2f4f2b816c2335628bcb5d';
 const BASE_URL = 'https://pixabay.com/api';
 
-// refs.hideImagesText.classList.remove('is-hidden');
-// hideImagesText: document.querySelector('.images-finish'),
-//     refs.hideImagesText.classList.add('is-hidden');
-
 export default class ImagesApiServise {
     constructor({ onResolved, onRejected }) {
         this.searchQuery = '';
