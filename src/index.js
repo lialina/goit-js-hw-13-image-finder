@@ -48,6 +48,8 @@ function onSearch(e) {
 }
 
 function createMarkup(data) {
+    scrollPageAfterDelay();
+    
     if (refs.searchInput.value.length === 0) {
         loadMoreButton.hide();
         clearImagesContainer();
@@ -89,4 +91,18 @@ function onError() {
     const error = document.createElement("h1");
     error.textContent = "Sorry, we couldn't pull up requested data :(";
     refs.imagesContainer.appendChild(error);
+};
+
+const element = document.getElementById('.my-element-selector');
+element.scrollIntoView({behavior: 'smooth',
+  block: 'end',
+});
+
+function scrollPageAfterDelay() {
+    setTimeout(() => {
+        document.body.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end'
+        });
+   }, 1000)
 };
